@@ -1,5 +1,9 @@
 //  import React library
 import React, { useEffect, useState } from "react";
+// import React Select
+import Select from 'react-select';
+// import utility function for date
+import convertToDateString from '../../assets/utils/formatDate';
 
 function ToDoForm() {
   // state for todo object
@@ -10,17 +14,36 @@ function ToDoForm() {
     taskDate: new Date().toDateString(),
   });
 
+  // options for select element
+  const options = [
+    { value: 'home', label: 'Home related' },
+    { value: 'self-care', label: 'Self-care' },
+    { value: 'medical-appt', label: 'Medical appointment' },
+    { value: 'legal-appt', label: 'Legal appointment' },
+    { value: 'fitness', label: 'Fitness & exercise' },
+    { value: 'for-other', label: 'For other' },
+    { value: 'work', label: 'Work related' },
+    { value: 'vacation', label: 'Vacation' },
+    { value: 'fun-activity', label: 'Date or fun activity' }
+  ];
 
   // handle the change in input from whichever form field...
   const handleInputChange = (event) => {
+    console.log('event is', event, typeof event);
+    // if the event has length i.e. is an array, run this
+    if(event.length) {
+      const tagsArray = event.map(tag => tag.value)
+      setTodo({
+        ...todo,
+        taskTags: tagsArray
+      })
+      return;
+    }
     const target = event.target;
-    const value = target.value;
-    // const value = target.name === 'taskTags' ? console.log('taskTags') : target.value;
+    // const value = target.value;
+    const value = target.name === 'taskDate' ? convertToDateString(target.value) : target.value;
     const name = target.name;
-
-    console.log(`Target: ${target} \n Name: ${name} \n Value: ${value}`);
-    
-    // update todo state
+    // otherwise, update todo state
     setTodo({
       ...todo,
       [name]: value,
@@ -66,25 +89,16 @@ function ToDoForm() {
       <label htmlFor="taskTags" className="form__label">
         Tags
       </label>
-      <select
-        id="taskTags"
-        name="taskTags"
+      <Select
         value={todo.taskTags}
         onChange={handleInputChange}
-        multiple={true}
+        options={options}
+        isMulti
+        id="taskTags"
+        name="taskTags"
+        placeholder="Choose a Tag(s)"
         className="form__input form__input--is-quarter-width"
-      >
-        <option value="">Choose a Tag(s)</option>
-        <option value="home">Home Related</option>
-        <option value="self-care">Self-care</option>
-        <option value="medical-appointment">Medical Appointment</option>
-        <option value="legal-appointment">Legal Appointment</option>
-        <option value="fitness">Fitness & Exercise</option>
-        <option value="for-other">For Other</option>
-        <option value="work">Work Related</option>
-        <option value="vacation">Vacation</option>
-        <option value="fun-activity">Date or Fun Activity</option>
-      </select>
+      />
       <label htmlFor="taskDate" className="form__label">
         Select a Date
       </label>
