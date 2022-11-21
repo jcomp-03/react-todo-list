@@ -4,3 +4,5 @@ export default function convertToDateString (dateStr) {
     array.push(year);
     return new Date(array.join('-')).toDateString();
 }
+
+export const makeShortDate = (dateStr) => new Date(dateStr).toLocaleDateString();

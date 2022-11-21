@@ -10,27 +10,48 @@ function App() {
       taskTitle: "",
       taskDescription: "",
       taskTags: [],
-      taskDate: new Date().toDateString(),
+      taskDate: "",
       taskId: ""
     });
 
     // state for todo list
     const [todoList, setTodoList] = useState([
       {
+        taskTitle: "Title 5",
+        taskDescription: "lorem ipsum",
+        taskTags: ['medical-appt'],
+        taskDate: '2023-01-01',
+      },
+      {
         taskTitle: "Title 1",
-        taskDescription: "lorem ipsum Est consequat",
+        taskDescription: "lorem ipsum",
         taskTags: ['self-care', 'home'],
-        taskDate: new Date('11-28-2022').toDateString(),
-        taskId: "123456789"
+        taskDate: '2022-11-28',
+      },
+      {
+        taskTitle: "Title 1.5",
+        taskDescription: "Est consequat",
+        taskTags: ['fun-activity'],
+        taskDate: '2022-11-28',
+      },
+      {
+        taskTitle: "Title 3",
+        taskDescription: "Est consequat laboris",
+        taskTags: ['legal-appt'],
+        taskDate: '2022-12-01',
+      },
+      {
+        taskTitle: "Title 4",
+        taskDescription: "Est consequat laboris officia",
+        taskTags: ['fitness', 'fun-activity', 'legal-appt'],
+        taskDate: '2022-12-01',
       },
       {
         taskTitle: "Title 2",
-        taskDescription: "lorem ipsum Est consequat laboris officia",
+        taskDescription: "lorem",
         taskTags: ['for-other', 'work'],
-        taskDate: new Date('12-01-2022').toDateString(),
-        taskId: "123456789"
+        taskDate: '2022-11-29',
       }
-
     ]);
 
   return (

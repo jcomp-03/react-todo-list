@@ -33,10 +33,8 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
 
     // otherwise update todo state this way
     const target = event.target;
-    const value =
-      target.name === "taskDate"
-        ? convertToDateString(target.value)
-        : target.value;
+    const value = target.value;
+    // const value = target.name === 'taskDate' ? new Date(`${target.value}`) : target.value;
     const name = target.name;
 
     setTodo({
@@ -53,21 +51,28 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
     // check todo has title, description, and tags
     if (taskTitle && taskDescription && taskTags.length) {
       console.log("Submitted todo has title, description, and tags.");
-      // add the new todo to the todo list
-      setTodoList([...todoList, todo]);
+      // sort existing todoList with new todo
+      // This sorting took an unreal amount of time to implement correctly.
+      // Ultimately went with this simple but not super performant solution found online
+      let sortProperty = "taskDate";
+      let sortedArray = [...todoList, todo].sort((a, b) => {
+        return new Date(a[sortProperty]) - new Date(b[sortProperty]);
+      });
+      // updated todolist state with sorted array
+      setTodoList([...sortedArray]);
       event.target.reset();
       return;
     }
     console.log("Missing title, description, or tags.");
   };
 
-  // useEffect(() => {
-  //   console.log("useEffect triggered: todoList updated", todoList);
-  // }, [todoList]);
+  useEffect(() => {
+    console.log("todoList updated", todoList);
+  }, [todoList]);
 
-  // useEffect(() => {
-  //   console.log("useEffect triggered: todo updated", todo);
-  // }, [todo]);
+  useEffect(() => {
+    console.log("todo updated", todo);
+  }, [todo]);
 
   // return the following JSX
   return (
