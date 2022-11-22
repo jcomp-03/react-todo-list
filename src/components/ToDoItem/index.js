@@ -5,7 +5,7 @@ console.log("profilePicture is", profilePicture);
 
 function ToDoItem({ todo }) {
   // console.log('todoItem', todo);
-  const { taskTitle, taskDescription, taskTags, taskDate } = todo;
+  const { taskTitle, taskDescription, taskTags } = todo;
 
   const handleRemoveClick = (e) => {
     console.log(e);

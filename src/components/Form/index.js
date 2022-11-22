@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // import React Select
 import Select from "react-select";
 // import utility function for date
-import convertToDateString from "../../assets/utils/formatDate";
+// import convertToDateString from "../../assets/utils/formatDate";
 
 function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
   // options for select element
@@ -47,7 +47,7 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     // destructure todo object
-    const { taskTitle, taskDescription, taskTags, taskDate, taskId } = todo;
+    const { taskTitle, taskDescription, taskTags } = todo;
     // check todo has title, description, and tags
     if (taskTitle && taskDescription && taskTags.length) {
       console.log("Submitted todo has title, description, and tags.");
@@ -66,13 +66,13 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
     console.log("Missing title, description, or tags.");
   };
 
-  useEffect(() => {
-    console.log("todoList updated", todoList);
-  }, [todoList]);
+  // useEffect(() => {
+  //   console.log("todoList updated", todoList);
+  // }, [todoList]);
 
-  useEffect(() => {
-    console.log("todo updated", todo);
-  }, [todo]);
+  // useEffect(() => {
+  //   console.log("todo updated", todo);
+  // }, [todo]);
 
   // return the following JSX
   return (

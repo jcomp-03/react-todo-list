@@ -28,12 +28,12 @@ function App() {
         taskTags: ['self-care', 'home'],
         taskDate: '2022-11-28',
       },
-      {
-        taskTitle: "Title 1.5",
-        taskDescription: "Est consequat",
-        taskTags: ['fun-activity'],
-        taskDate: '2022-11-28',
-      },
+      // {
+      //   taskTitle: "Title 1.5",
+      //   taskDescription: "Est consequat",
+      //   taskTags: ['fun-activity'],
+      //   taskDate: '2022-11-28',
+      // },
       {
         taskTitle: "Title 3",
         taskDescription: "Est consequat laboris",
