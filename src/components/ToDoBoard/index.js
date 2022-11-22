@@ -7,7 +7,7 @@ function ToDoBoard({ todo, setTodo, todoList, setTodoList }) {
   const mapIter = useRef(null);
 
   // ultimately want this useEffect dependent on todoList so it
-  // runs every timea new todo is added to the list
+  // runs every time a new todo is added to the list
   useEffect(() => {
     // thinking I"m gonna use a Map for this part
     const map = new Map();
@@ -31,7 +31,6 @@ function ToDoBoard({ todo, setTodo, todoList, setTodoList }) {
     mapIter.current = map.entries();
     console.log("mapIter.current is", mapIter.current);
   }, [todoList]);
-
 
 
   const todosList = todoList.map((todo, index) => (
