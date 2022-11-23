@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import profilePicture from "../../assets/media/festive-james-original.jpg";
+import profilePicture from "../../public/assets/media/festive-james-original.jpg";
 
 function ToDoItem({ todo, todoList, setTodoList }) {
   // state variable to determine which template to render. Idea pulled from online

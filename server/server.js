@@ -9,9 +9,10 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+// in relation to this file, jump out of parent folder and into client/public
+app.use(express.static("../client/public"));
 
-// Serve up static assets; only runs in production environment
+// Serve up static assets if in production environment
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
