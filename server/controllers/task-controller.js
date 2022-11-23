@@ -17,7 +17,7 @@ const taskController = {
   // get one task by id
   getTaskById({ params }, res) {
     console.log('----- running getTaskById -----');
-    Task.findOne({ _id: params.id })
+    Task.findOne({ taskId: params.id })
       .select('-__v')
       .then(dbTaskData => res.json(dbTaskData))
       .catch(err => {
@@ -26,7 +26,7 @@ const taskController = {
       });
   },
 
-  // createTask
+  // create a task
   createTask({ body }, res) {
     console.log('----- running CreateTask -----');
     Task.create(body)
@@ -37,7 +37,7 @@ const taskController = {
   // update task by id
   updateTask({ params, body }, res) {
     console.log('----- running updateTask -----');
-    Task.findOneAndUpdate({ taskId: params.id }, body, { new: true, runValidators: true })
+    Task.findOneAndUpdate({ taskId: params.id }, body, { new: true })
       .then(dbTaskData => {
         if (!dbTaskData) {
           res.status(404).json({ message: 'No task found with this id!' });
