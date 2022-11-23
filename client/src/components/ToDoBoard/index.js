@@ -2,10 +2,10 @@ import React, { useEffect, Fragment, useState } from "react";
 import ToDoItem from "../ToDoItem";
 import { makeShortDate } from "../../assets/utils/formatDate";
 
-function ToDoBoard({ todoList, setTodoList }) {
+function ToDoBoard({ hideTodoBoard, todoList, setTodoList }) {
   // I want to sort my todos by date. This state variable will hold them
   const [sortedList, setSortedList] = useState([]);
-
+  // console.log(hideTodoBoard);
   useEffect(() => {
     // Pulled this idea of converting Map to Array from online
     const newSortedList = Array.from(todoList.entries());
@@ -38,7 +38,9 @@ function ToDoBoard({ todoList, setTodoList }) {
   };
 
   // component return
-  return (
+  return hideTodoBoard ? (
+    <h1 className="show-board">Press purple button to show todos</h1>
+  ) : (
     <section className="section">{sortedList.map(renderDateAndTodos)}</section>
   );
 }

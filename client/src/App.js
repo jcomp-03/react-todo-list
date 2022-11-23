@@ -5,6 +5,8 @@ import ToDoBoard from "./components/ToDoBoard";
 import { nanoid } from "nanoid";
 
 function App() {
+  // state variable for showing/hiding todo board
+  const [hideTodoBoard, setHideTodoBoard] = useState(false);
 
   // state for todo list
   const [todoList, setTodoList] = useState(
@@ -34,35 +36,36 @@ function App() {
         ],
       ],
       [
-        "2022-09-16",
+        "2022-11-25",
         [
           {
-            taskDate: "2022-09-16",
+            taskDate: "2022-11-25",
             taskDescription: "lorem ipsum ipsum",
             taskId: `todo-${nanoid()}`,
             taskTags: ["work"],
             taskTitle: "Title 1",
           },
           {
-            taskDate: "2022-09-16",
+            taskDate: "2022-11-25",
             taskDescription: "lorem lorem",
             taskId: `todo-${nanoid()}`,
             taskTags: ["for-other"],
             taskTitle: "Title 2",
           },
         ],
-      ]
+      ],
     ])
   );
 
   return (
     <>
-      <Header />
-      <ToDoForm
-        todoList={todoList}
-        setTodoList={setTodoList}
+      <Header
+        hideTodoBoard={hideTodoBoard}
+        setHideTodoBoard={setHideTodoBoard}
       />
+      <ToDoForm todoList={todoList} setTodoList={setTodoList} />
       <ToDoBoard
+        hideTodoBoard={hideTodoBoard}
         todoList={todoList}
         setTodoList={setTodoList}
       />

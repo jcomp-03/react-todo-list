@@ -37,7 +37,6 @@ function ToDoForm({ todoList, setTodoList }) {
       });
       return;
     }
-
     // otherwise update todo state this way
     const target = event.target; 
     const value = target.value; 
@@ -112,7 +111,6 @@ function ToDoForm({ todoList, setTodoList }) {
         Tags
       </label>
       <Select
-        unstyled
         onChange={handleInputChange}
         options={options}
         isMulti

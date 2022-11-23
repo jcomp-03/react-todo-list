@@ -1,13 +1,20 @@
 //  import React library
 import React from "react";
 
-function Header() {
+function Header({ hideTodoBoard, setHideTodoBoard }) {
+
+  const handleClick = () => {
+    console.log("Click heard");
+    hideTodoBoard ? setHideTodoBoard(false) : setHideTodoBoard(true);
+  };
 
   return (
     <header className="header">
       <span className="header__span">My ToDo List</span>
       <nav className="header__nav">
-        <button className="btn header__btn">Show Tasks Lists</button>
+        <button className="btn header__btn" onClick={handleClick}>
+          {hideTodoBoard ? "Show Tasks List" : "Hide Tasks List"}
+        </button>
       </nav>
     </header>
   );
