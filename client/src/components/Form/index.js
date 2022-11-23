@@ -47,7 +47,7 @@ function ToDoForm({ todoList, setTodoList }) {
     // prevent default behavior
     event.preventDefault();
     // destructure todo object
-    const { taskTitle, taskDescription, taskTags, taskDate } = todo;
+    const { taskTitle, taskDescription, taskDate } = todo;
     // check todo has title, description, tags, and date
     // if (taskTitle && taskDescription && taskTags.length && taskDate) {
     if (taskTitle && taskDescription && taskDate && selectedOption) {
