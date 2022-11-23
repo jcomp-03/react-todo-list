@@ -59,8 +59,8 @@ function ToDoForm({ todoList, setTodoList }) {
       const todoWithIdAndTags = {
         ...todo,
         taskId: nanoId,
-        taskTags: tagsArray
-      }
+        taskTags: tagsArray,
+      };
       // create new Map object and set it to current todo list
       const newMap = new Map(todoList);
       // if taskDate already exists, return its array of values, otherwise set to empty array
@@ -73,6 +73,19 @@ function ToDoForm({ todoList, setTodoList }) {
       event.target.reset();
       // reset the select element
       setSelectedOption([]);
+      // add to database
+      fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todoWithIdAndTags),
+      })
+        .then((response) => response.json())
+        .then((postResponse) => console.log(postResponse))
+        .catch((err) => console.log(err));
+      // jump out of function
       return;
     } else {
       alert("Missing title, description, tags, or date field.");

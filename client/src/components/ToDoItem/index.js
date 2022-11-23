@@ -26,10 +26,14 @@ function ToDoItem({ todo, todoList, setTodoList }) {
     newMap.set(date, [...currentDateTodos]);
     // and update state with new Map object
     setTodoList(newMap);
+    // delete from database
+    fetch(`/api/tasks/${id}`, { method: "DELETE" })
+      .then((response) => response.json())
+      .then((deleteResponse) => console.log(deleteResponse))
+      .catch((err) => console.log(err));
   };
 
   const handleInputChange = (event) => {
-
     const target = event.target;
     const value = target.value;
     console.log(value);
@@ -65,6 +69,18 @@ function ToDoItem({ todo, todoList, setTodoList }) {
       setTodoList(newMap);
       // go back to viewTemplate
       setIsEditing(false);
+      // update in database
+      fetch(`/api/tasks/${taskId}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentTodoObject),
+      })
+        .then((response) => response.json())
+        .then((deleteResponse) => console.log(deleteResponse))
+        .catch((err) => console.log(err));
     } else {
       alert("Missing title or description in edit context.");
       console.log("Missing title or description in edit context.");
