@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
-// import the profile image from /src/assets/media/
+import React, { useState } from "react";
 import profilePicture from "../../assets/media/festive-james-original.jpg";
 
 function ToDoItem({ todo, todoList, setTodoList }) {
-  // state variable to determine which template to render
-  // idea pulled from online, as well as template constants further down below
+  // state variable to determine which template to render. Idea pulled from online
   const [isEditing, setIsEditing] = useState(false);
-
+  // make another state variable for editing task title/description
   const [componentTodo, setComponentTodo] = useState({ ...todo });
-
   // destructure todo
   const { taskDate, taskDescription, taskId, taskTags, taskTitle } = todo;
 
   const handleRemoveTodo = (date, id) => {
-    // console.log('Remove button pressed');
     const newMap = new Map(todoList);
     // get list of todos
     const currentDateTodos = newMap.get(date);
@@ -33,6 +29,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
   };
 
   const handleInputChange = (event) => {
+
     const target = event.target;
     const value = target.value;
     console.log(value);
@@ -50,8 +47,8 @@ function ToDoItem({ todo, todoList, setTodoList }) {
     event.preventDefault();
     // destructure todo object
     const { taskId, taskDate } = todo;
-    // check todo has title & description
-    if (taskTitle && taskDescription) {
+    // check componentTodo has title & description
+    if (componentTodo.taskTitle && componentTodo.taskDescription) {
       console.log("Updated todo has title & description.");
       // create new Map object and set it to current todo list
       const newMap = new Map(todoList);
@@ -66,6 +63,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
       newMap.set(taskDate, currentDateTasks);
       // update state with new Map object
       setTodoList(newMap);
+      // go back to viewTemplate
       setIsEditing(false);
     } else {
       alert("Missing title or description in edit context.");

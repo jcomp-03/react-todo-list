@@ -1,19 +1,10 @@
 import { useState } from "react";
-// import React components
 import Header from "./components/Header";
 import ToDoForm from "./components/Form";
 import ToDoBoard from "./components/ToDoBoard";
 import { nanoid } from "nanoid";
 
 function App() {
-  // state for todo object
-  // const [todo, setTodo] = useState({
-  //   taskTitle: "",
-  //   taskDescription: "",
-  //   taskTags: [],
-  //   taskDate: "",
-  //   taskId: "",
-  // });
 
   // state for todo list
   const [todoList, setTodoList] = useState(

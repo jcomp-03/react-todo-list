@@ -1,11 +1,10 @@
-// import React library
 import React, { useEffect, useState } from "react";
-// import React Select
 import Select from "react-select";
-// import nanoid
 import { nanoid } from "nanoid";
 
 function ToDoForm({ todoList, setTodoList }) {
+  // moved todo state variable into this component since it should belong
+  // strictly to this component
   const [todo, setTodo] = useState({
     taskTitle: "",
     taskDescription: "",
@@ -83,23 +82,8 @@ function ToDoForm({ todoList, setTodoList }) {
     console.log(`todoList is`, todoList);
   }, [todoList])
 
-  // function updateTask(taskDate, taskId, newTitle) {
-  //   const newMap = new Map(todoList);
-  //   const currentDateTasks = newMap.get(taskDate) ?? [];
-  //   const currentTask = currentDateTasks.find(task => task.taskId === taskId);
-    
-  //   if (currentTask) {
-  //     currentTask.title = newTitle;
 
-  //     newMap.set(taskDate, currentDateTasks);
-  //     setTodoList(newMap)
-  //   }
-  // }
-
-
-  // return the following JSX
-  
-  
+  // component return 
   return (
     <form className="form" onSubmit={handleFormSubmit}>
       <label htmlFor="taskTitle" className="form__label">
