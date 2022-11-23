@@ -13,6 +13,10 @@ function ToDoForm({ todoList, setTodoList }) {
     taskId: "",
   });
 
+  // state variable for select element, basically an array of
+  // objects with two properties: value and label
+  const [selectedOption, setSelectedOption] = useState(null);
+
   // options for select element
   const options = [
     { value: "home", label: "Home related" },
@@ -26,21 +30,11 @@ function ToDoForm({ todoList, setTodoList }) {
     { value: "fun-activity", label: "Date or fun activity" },
   ];
 
-  // handle input change from whichever form field...
+  // handle input change all inputs except select element...
   const handleInputChange = (event) => {
-    // if event is an array, i.e. the select input was changed, update todo state this way
-    if (Array.isArray(event)) {
-      const tagsArray = event.map((tag) => tag.value);
-      setTodo({
-        ...todo,
-        taskTags: tagsArray,
-      });
-      return;
-    }
-    // otherwise update todo state this way
-    const target = event.target; 
-    const value = target.value; 
-    const name = target.name; 
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
     setTodo({
       ...todo,
@@ -55,34 +49,42 @@ function ToDoForm({ todoList, setTodoList }) {
     // destructure todo object
     const { taskTitle, taskDescription, taskTags, taskDate } = todo;
     // check todo has title, description, tags, and date
-    if (taskTitle && taskDescription && taskTags.length && taskDate) {
+    // if (taskTitle && taskDescription && taskTags.length && taskDate) {
+    if (taskTitle && taskDescription && taskDate && selectedOption) {
       console.log("Submitted todo has title, description, date, and tags.");
+      // get tags from selectedOption
+      const tagsArray = selectedOption.map((tag) => tag.value);
       // assign id to todo
-      todo.taskId = `todo-${nanoid()}`;
+      const nanoId = `todo-${nanoid()}`;
+      const todoWithIdAndTags = {
+        ...todo,
+        taskId: nanoId,
+        taskTags: tagsArray
+      }
       // create new Map object and set it to current todo list
       const newMap = new Map(todoList);
       // if taskDate already exists, return its array of values, otherwise set to empty array
       const currentDateTasks = newMap.get(taskDate) ?? [];
       // update the array of values for the current taskDate
-      newMap.set(taskDate, [...currentDateTasks, todo]);
+      newMap.set(taskDate, [...currentDateTasks, todoWithIdAndTags]);
       // update state with new Map object
-      setTodoList(newMap)
-      // reset the fields
+      setTodoList(newMap);
+      // reset the inputs
       event.target.reset();
+      // reset the select element
+      setSelectedOption([]);
       return;
     } else {
       alert("Missing title, description, tags, or date field.");
       console.log("Missing title, description, tags, or date field.");
     }
-   
   };
 
   useEffect(() => {
     console.log(`todoList is`, todoList);
-  }, [todoList])
+  }, [todoList]);
 
-
-  // component return 
+  // component return
   return (
     <form className="form" onSubmit={handleFormSubmit}>
       <label htmlFor="taskTitle" className="form__label">
@@ -111,7 +113,9 @@ function ToDoForm({ todoList, setTodoList }) {
         Tags
       </label>
       <Select
-        onChange={handleInputChange}
+        onChange={setSelectedOption}
+        defaultValue={selectedOption}
+        value={selectedOption}
         options={options}
         isMulti
         id="taskTags"
