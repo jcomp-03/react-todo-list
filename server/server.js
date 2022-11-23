@@ -15,14 +15,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/pizza-hunt",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
-
 // Use this to log mongo queries being executed!
 mongoose.set("debug", true);
 
