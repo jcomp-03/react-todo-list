@@ -1,11 +1,19 @@
 // import React library
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import React Select
 import Select from "react-select";
-// import utility function for date
-// import convertToDateString from "../../assets/utils/formatDate";
+// import nanoid
+import { nanoid } from "nanoid";
 
-function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
+function ToDoForm({ todoList, setTodoList }) {
+  const [todo, setTodo] = useState({
+    taskTitle: "",
+    taskDescription: "",
+    taskTags: [],
+    taskDate: "",
+    taskId: "",
+  });
+
   // options for select element
   const options = [
     { value: "home", label: "Home related" },
@@ -32,10 +40,9 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
     }
 
     // otherwise update todo state this way
-    const target = event.target;
-    const value = target.value;
-    // const value = target.name === 'taskDate' ? new Date(`${target.value}`) : target.value;
-    const name = target.name;
+    const target = event.target; 
+    const value = target.value; 
+    const name = target.name; 
 
     setTodo({
       ...todo,
@@ -44,39 +51,57 @@ function ToDoForm({ todo, setTodo, todoList, setTodoList }) {
   };
 
   // handle form submit
-  const handleSubmit = (event) => {
+  const handleFormSubmit = (event) => {
+    // prevent default behavior
     event.preventDefault();
     // destructure todo object
-    const { taskTitle, taskDescription, taskTags } = todo;
-    // check todo has title, description, and tags
-    if (taskTitle && taskDescription && taskTags.length) {
-      console.log("Submitted todo has title, description, and tags.");
-      // sort existing todoList with new todo
-      // This sorting took an unreal amount of time to implement correctly.
-      // Ultimately went with this simple but not super performant solution found online
-      let sortProperty = "taskDate";
-      let sortedArray = [...todoList, todo].sort((a, b) => {
-        return new Date(a[sortProperty]) - new Date(b[sortProperty]);
-      });
-      // updated todolist state with sorted array
-      setTodoList([...sortedArray]);
+    const { taskTitle, taskDescription, taskTags, taskDate } = todo;
+    // check todo has title, description, tags, and date
+    if (taskTitle && taskDescription && taskTags.length && taskDate) {
+      console.log("Submitted todo has title, description, date, and tags.");
+      // assign id to todo
+      todo.taskId = `todo-${nanoid()}`;
+      // create new Map object and set it to current todo list
+      const newMap = new Map(todoList);
+      // if taskDate already exists, return its array of values, otherwise set to empty array
+      const currentDateTasks = newMap.get(taskDate) ?? [];
+      // update the array of values for the current taskDate
+      newMap.set(taskDate, [...currentDateTasks, todo]);
+      // update state with new Map object
+      setTodoList(newMap)
+      // reset the fields
       event.target.reset();
       return;
+    } else {
+      alert("Missing title, description, tags, or date field.");
+      console.log("Missing title, description, tags, or date field.");
     }
-    console.log("Missing title, description, or tags.");
+   
   };
 
-  // useEffect(() => {
-  //   console.log("todoList updated", todoList);
-  // }, [todoList]);
+  useEffect(() => {
+    console.log(`todoList is`, todoList);
+  }, [todoList])
 
-  // useEffect(() => {
-  //   console.log("todo updated", todo);
-  // }, [todo]);
+  // function updateTask(taskDate, taskId, newTitle) {
+  //   const newMap = new Map(todoList);
+  //   const currentDateTasks = newMap.get(taskDate) ?? [];
+  //   const currentTask = currentDateTasks.find(task => task.taskId === taskId);
+    
+  //   if (currentTask) {
+  //     currentTask.title = newTitle;
+
+  //     newMap.set(taskDate, currentDateTasks);
+  //     setTodoList(newMap)
+  //   }
+  // }
+
 
   // return the following JSX
+  
+  
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleFormSubmit}>
       <label htmlFor="taskTitle" className="form__label">
         Task
       </label>
