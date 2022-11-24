@@ -52,6 +52,7 @@ function ToDoForm({ todoList, setTodoList }) {
     // if (taskTitle && taskDescription && taskTags.length && taskDate) {
     if (taskTitle && taskDescription && taskDate && selectedOption) {
       console.log("Submitted todo has title, description, date, and tags.");
+      console.log(taskDate);
       // get tags from selectedOption
       const tagsArray = selectedOption.map((tag) => tag.value);
       // assign id to todo

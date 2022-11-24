@@ -1,8 +1,3 @@
-export default function convertToDateString (dateStr) {
-    let array = dateStr.split('-');
-    let year = array.shift();
-    array.push(year);
-    return new Date(array.join('-')).toDateString();
+export default function styleDateAsRequired (dateStr) {
+    return new Date(dateStr).toDateString().split(' ').slice(1,3).reverse().join(', ');
 }
-
-export const makeShortDate = (dateStr) => new Date(dateStr).toLocaleDateString();

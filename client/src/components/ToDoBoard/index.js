@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState } from "react";
 import ToDoItem from "../ToDoItem";
-import { makeShortDate } from "../../assets/utils/formatDate";
+import styleDateAsRequired from "../../assets/utils/formatDate";
 
 function ToDoBoard({ hideTodoBoard, todoList, setTodoList }) {
   // I want to sort my todos by date. This state variable will hold them
@@ -25,13 +25,13 @@ function ToDoBoard({ hideTodoBoard, todoList, setTodoList }) {
         todo={todo}
         todoList={todoList}
         setTodoList={setTodoList}
-        key={makeShortDate(todo.taskDate) + "-" + index}
+        key={todo.taskDate + "-" + index}
       />
     ));
 
     return (
       <Fragment key={element[0]}>
-        <span className="section__date">{element[0]}</span>
+        <span className="section__date">{styleDateAsRequired(element[0])}</span>
         {componentArray}
       </Fragment>
     );
