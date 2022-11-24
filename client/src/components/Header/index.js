@@ -4,7 +4,6 @@ import React from "react";
 function Header({ hideTodoBoard, setHideTodoBoard }) {
 
   const handleClick = () => {
-    console.log("Click heard");
     hideTodoBoard ? setHideTodoBoard(false) : setHideTodoBoard(true);
   };
 

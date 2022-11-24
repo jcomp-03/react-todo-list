@@ -4,6 +4,8 @@ import profilePicture from "../../assets/media/festive-james-original.jpg";
 function ToDoItem({ todo, todoList, setTodoList }) {
   // state variable to determine which template to render. Idea pulled from online
   const [isEditing, setIsEditing] = useState(false);
+  // state variable for checkbox
+  const [taskComplete, setTaskComplete] = useState(false);
   // make another state variable for editing task title/description
   const [componentTodo, setComponentTodo] = useState({ ...todo });
   // destructure todo
@@ -87,12 +89,23 @@ function ToDoItem({ todo, todoList, setTodoList }) {
     }
   };
 
+  const handleCheckBoxClick = (event) => {
+    const isTaskComplete = window.confirm('Mark the task as complete?');
+    const { target } = event;
+    if(isTaskComplete) {
+      setTaskComplete(true);
+      
+    }
+    console.log(target);
+
+  }
+
   // render this template when isEditing is set to false (default)
   const viewTemplate = (
     <li className="li">
       <div className="li__div">
         <div className="li__content">
-          <input className="li__input" type="checkbox" />
+          <input className="li__input" type="checkbox" disabled={taskComplete} checked={taskComplete} onChange={handleCheckBoxClick}/>
           <img
             className="li__image"
             src={profilePicture}
@@ -104,7 +117,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
           </div>
         </div>
         <div className="li__status">
-          <button className="btn btn--is-active">Active</button>
+          <button className="btn btn--is-active">{taskComplete ? "Completed" : "Active" }</button>
           {taskTags.map((tag, index) => {
             return (
               <button className="btn btn--is-tag" key={tag}>
@@ -121,6 +134,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
           <button
             className="btn--is-edit-todo"
             onClick={() => setIsEditing(true)}
+            disabled={taskComplete}
           >
             <i className="fa-solid fa-pen"></i>
           </button>
