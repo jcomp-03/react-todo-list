@@ -13,3 +13,7 @@ it("renders successfully", () => {
 });
 
 // Test #2
+it('matches snapshot DOM node structure', () => {
+  const { asFragment } = render(<Header />);
+  expect(asFragment()).toMatchSnapshot();
+});
