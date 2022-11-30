@@ -20,10 +20,6 @@ if (process.env.NODE_ENV === "production") {
 // Use this to log mongo queries being executed!
 mongoose.set("debug", true);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
-// });
-
 app.use(require("./routes"));
 
 db.once("open", () => {
