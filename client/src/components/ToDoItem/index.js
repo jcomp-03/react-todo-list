@@ -11,6 +11,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
   // destructure todo
   const { taskDate, taskDescription, taskId, taskTags, taskTitle } = todo;
 
+  
   const handleRemoveTodo = (date, id) => {
     const newMap = new Map(todoList);
     // get list of todos
@@ -19,6 +20,11 @@ function ToDoItem({ todo, todoList, setTodoList }) {
     if (currentDateTodos.length === 1) {
       newMap.delete(date);
       setTodoList(newMap);
+      // delete from database
+      fetch(`/api/tasks/${id}`, { method: "DELETE" })
+        .then((response) => response.json())
+        .then((deleteResponse) => console.log(deleteResponse))
+        .catch((err) => console.log(err));
       return;
     }
     // get index of todo and splice it from array
@@ -38,9 +44,7 @@ function ToDoItem({ todo, todoList, setTodoList }) {
   const handleInputChange = (event) => {
     const target = event.target;
     const value = target.value;
-    console.log(value);
     const name = target.name;
-    console.log(name);
     // as user updates the todo, set it in state
     setComponentTodo({
       ...componentTodo,
@@ -90,22 +94,25 @@ function ToDoItem({ todo, todoList, setTodoList }) {
   };
 
   const handleCheckBoxClick = (event) => {
-    const isTaskComplete = window.confirm('Mark the task as complete?');
-    const { target } = event;
-    if(isTaskComplete) {
+    const isTaskComplete = window.confirm("Mark the task as complete?");
+    if (isTaskComplete) {
       setTaskComplete(true);
-      
+      setIsEditing(false);
     }
-    console.log(target);
-
-  }
+  };
 
   // render this template when isEditing is set to false (default)
   const viewTemplate = (
     <li className="li">
       <div className="li__div">
         <div className="li__content">
-          <input className="li__input" type="checkbox" disabled={taskComplete} checked={taskComplete} onChange={handleCheckBoxClick}/>
+          <input
+            className="li__input"
+            type="checkbox"
+            disabled={taskComplete}
+            checked={taskComplete}
+            onChange={handleCheckBoxClick}
+          />
           <img
             className="li__image"
             src={profilePicture}
@@ -117,7 +124,9 @@ function ToDoItem({ todo, todoList, setTodoList }) {
           </div>
         </div>
         <div className="li__status">
-          <button className="btn btn--is-active">{taskComplete ? "Completed" : "Active" }</button>
+          <button className="btn btn--is-active">
+            {taskComplete ? "Completed" : "Active"}
+          </button>
           {taskTags.map((tag, index) => {
             return (
               <button className="btn btn--is-tag" key={tag}>
@@ -148,7 +157,13 @@ function ToDoItem({ todo, todoList, setTodoList }) {
     <li className="li">
       <div className="li__div">
         <div className="li__content">
-          <input className="li__input" type="checkbox" />
+        <input
+            className="li__input"
+            type="checkbox"
+            disabled={taskComplete}
+            checked={taskComplete}
+            onChange={handleCheckBoxClick}
+          />
           <img
             className="li__image"
             src={profilePicture}
