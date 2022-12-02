@@ -1,12 +1,12 @@
 #  Dockerfile for Node/Express backend
 
-## Get version 18 of Node built on top of
+## Get version 16 of Node built on top of
 ## the alpine distribution
-FROM node:18-alpine
+FROM node:16-alpine
 
-## Specify work directory on image to be /app
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+## Specify work directory on image to be /usr/app
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
 ## Copy package.json file over to the image
 ## so we can run npm install in next layer
@@ -29,4 +29,4 @@ EXPOSE 3001
 ## file, which runs command 'node server.js'
 ## Can only be one CMD per Dockerfile, and tells container
 ## how to run the application. 
-CMD ["npm","start"]
+CMD ["npm", "run", "start"]
