@@ -7,7 +7,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: jlcomp03/rajant-client
+    image: jlcomp03/todo-app-client
     container_name: container_client
     command: npm start
     volumes:
@@ -26,7 +26,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: jlcomp03/rajant-server
+    image: jlcomp03/todo-app-server
     container_name: container_server
     # command: /usr/src/app/node_modules/.bin/nodemon server.js
     volumes:
